@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
+import { User, KeyRound, LogIn, Info, Eye, EyeOff, Calculator } from "lucide-react";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -23,6 +24,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { login, isLoading, error } = useAuthStore();
   const [showDemo, setShowDemo] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -45,6 +47,9 @@ export default function LoginPage() {
       
       <Card className="w-full max-w-md">
         <CardHeader>
+          <div className="flex justify-center mb-2">
+            <Calculator className="h-12 w-12 text-primary" />
+          </div>
           <CardTitle className="text-2xl text-center">Mega Calculator</CardTitle>
           <CardDescription className="text-center">
             Login to access your calculator
@@ -54,33 +59,53 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                {...register("username")}
-              />
+              <div className="relative">
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="Username"
+                  className="pl-10"
+                  {...register("username")}
+                />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              </div>
               {errors.username && (
                 <p className="text-sm text-red-500">{errors.username.message}</p>
               )}
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                {...register("password")}
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="pl-10 pr-10"
+                  {...register("password")}
+                />
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <button 
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-sm text-red-500">{errors.password.message}</p>
               )}
             </div>
             
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Login"}
+              {isLoading ? (
+                <>Loading...</>
+              ) : (
+                <>
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Login
+                </>
+              )}
             </Button>
             
             {error && (
@@ -94,6 +119,7 @@ export default function LoginPage() {
               className="w-full text-sm"
               onClick={() => setShowDemo(!showDemo)}
             >
+              <Info className="h-4 w-4 mr-2" />
               {showDemo ? "Hide Demo Accounts" : "Show Demo Accounts"}
             </Button>
             
