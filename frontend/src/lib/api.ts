@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
+// Create the API instance
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -9,16 +10,24 @@ const api = axios.create({
   },
 });
 
+// Function to get token - will be set after auth store is initialized
+let getToken: () => string | null = () => null;
+
+// Export a function to set the token getter
+export const setTokenGetter = (getter: () => string | null) => {
+  getToken = getter;
+};
+
 // Add request interceptor to include the token in requests
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = getToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// We'll set this after the auth store is defined
+// Function to handle token expiration - will be set after auth store is initialized
 let handleTokenExpiration: () => void;
 
 // Export a function to set the token expiration handler

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { authService, LoginCredentials } from "@/lib/api";
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 interface AuthState {
   token: string | null;
@@ -11,28 +12,45 @@ interface AuthState {
   login: (credentials: LoginCredentials) => Promise<boolean>;
   logout: () => void;
   handleTokenExpired: () => void;
+  getToken: () => string | null;
+  setToken: (token: string) => void;
+  removeToken: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       token: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
+      
+      // Get token from state
+      getToken: () => {
+        return get().token;
+      },
+      
+      // Set token in state and storage
+      setToken: (token: string) => {
+        set({ token, isAuthenticated: true });
+        // Set cookie for middleware (7 days expiry)
+        Cookies.set("token", token, { path: "/", expires: 7, sameSite: "Strict" });
+      },
+      
+      // Remove token from state and storage
+      removeToken: () => {
+        set({ token: null, isAuthenticated: false });
+        // Remove cookie
+        Cookies.remove("token", { path: "/" });
+      },
+      
       login: async (credentials) => {
         set({ isLoading: true, error: null });
         try {
           const response = await authService.login(credentials);
-          set({
-            token: response.access_token,
-            isAuthenticated: true,
-            isLoading: false,
-          });
-          
-          // Setting in localStorage for API requests
-          localStorage.setItem("token", response.access_token);
-          
+          // Use the setToken method
+          get().setToken(response.access_token);
+          set({ isLoading: false });
           return true;
         } catch (error) {
           const errorMessage = "Invalid credentials";
@@ -46,24 +64,18 @@ export const useAuthStore = create<AuthState>()(
           return false;
         }
       },
+      
       logout: () => {
-        set({
-          token: null,
-          isAuthenticated: false,
-        });
-        
-        // Clear from localStorage
-        localStorage.removeItem("token");
+        // Use the removeToken method
+        get().removeToken();
       },
+      
       handleTokenExpired: () => {
-        set({
-          token: null,
-          isAuthenticated: false,
-          error: "Session expired. Please login again."
-        });
-        
-        // Clear from localStorage
-        localStorage.removeItem("token");
+        // Use the removeToken method
+        get().removeToken();
+        set({ error: "Session expired. Please login again." });
+        // Show toast notification
+        toast.error("Your session has expired. Please login again.");
       }
     }),
     {

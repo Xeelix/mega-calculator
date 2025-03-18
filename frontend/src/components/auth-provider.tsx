@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/auth-store";
-import { setTokenExpirationHandler } from "@/lib/api";
+import { setTokenExpirationHandler, setTokenGetter } from "@/lib/api";
 import { useRouter } from "next/navigation";
 
 interface AuthProviderProps {
@@ -10,35 +10,35 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { token, handleTokenExpired } = useAuthStore();
+  const { token, setToken, handleTokenExpired, getToken } = useAuthStore();
   const router = useRouter();
   
-  // Set up token expiration handler
+  // Set up token getter and expiration handler
   useEffect(() => {
+    // Set the token getter for API requests
+    setTokenGetter(getToken);
+    
+    // Set up token expiration handler
     setTokenExpirationHandler(() => {
       handleTokenExpired();
       router.push("/login");
     });
-  }, [handleTokenExpired, router]);
+  }, [handleTokenExpired, getToken, router]);
   
-  // We'll use the auth provider for any global auth state management
-  // and to synchronize token between localStorage and cookies
+  // Initialize token from localStorage on first load if needed
   useEffect(() => {
-    // On initial load, check if there's a token in localStorage
-    const storedToken = localStorage.getItem("token");
-    
-    // Store the token in a cookie for the middleware to access
-    if (token) {
-      document.cookie = `token=${token}; path=/; max-age=604800; SameSite=Strict`;
-    } else if (storedToken) {
-      // If there's a token in localStorage but not in the store,
-      // set it in the cookie
-      document.cookie = `token=${storedToken}; path=/; max-age=604800; SameSite=Strict`;
-    } else {
-      // Clear the cookie if no token exists
-      document.cookie = "token=; path=/; max-age=0";
+    // This is only needed once during initialization
+    // to sync any existing token from a previous session
+    if (!token) {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        // Use store method to set token which will also set the cookie
+        setToken(storedToken);
+        // Remove from localStorage as we'll use the store from now on
+        localStorage.removeItem("token");
+      }
     }
-  }, [token]);
+  }, [token, setToken]);
 
   return <>{children}</>;
 } 
