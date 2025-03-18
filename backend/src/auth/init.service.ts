@@ -29,6 +29,11 @@ export class InitService {
         await this.userModel.create({
           username: account.username,
           password: hashedPassword,
+          calculatorState: {
+            memory: 0,
+            currentExpression: ''
+          },
+          createdAt: new Date()
         });
         console.log(`Created test account: ${account.username}`);
       }

@@ -20,6 +20,6 @@ import { InitService } from './init.service';
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, InitService],
-  exports: [AuthService],
+  exports: [AuthService, MongooseModule],
 })
 export class AuthModule {} 
