@@ -75,7 +75,3 @@ cd backend
 npm install
 npm run start:dev
 ```
-
-## API
-
-API документация доступна по адресу [http://localhost:8000/api](http://localhost:8000/api) после запуска бэкенда. 
