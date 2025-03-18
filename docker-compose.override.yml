@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  frontend:
+    command: npm run dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+
+  backend:
+    command: npm run start:dev
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/dist
+    environment:
+      - NODE_ENV=development 
