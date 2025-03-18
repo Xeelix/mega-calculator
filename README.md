@@ -6,7 +6,7 @@
 
 ## Демонстрация
 
-### Веб-версия
+### Десктоп-версия
 <div align="center">
   <img src="./public/desktop-login.jpeg" alt="Страница входа на десктопе" width="800" />
   <img src="./public/desktop-calc.jpeg" alt="Калькулятор на десктопе" width="800" />
