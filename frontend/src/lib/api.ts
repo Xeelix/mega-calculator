@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-// Create the API instance
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -39,8 +38,7 @@ export const setTokenExpirationHandler = (handler: () => void) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // Call the token expiration handler if it's set
+    if (error.response?.status === 401 && getToken()) {
       if (handleTokenExpiration) {
         handleTokenExpiration();
       }

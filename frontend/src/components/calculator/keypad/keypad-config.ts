@@ -1,6 +1,6 @@
 import { Delete, Divide, X, Minus, Plus } from "lucide-react";
 import { LucideIcon } from "lucide-react";
-import { ButtonType } from "./calculator-button";
+import { ButtonType } from "../core/calculator-button";
 
 export type KeypadAction = 
   | "number" 

@@ -7,7 +7,15 @@ import { InitService } from './auth/init.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors();
+  
+  // Configure CORS with specific options
+  app.enableCors({
+    origin: true, // Allow requests from any origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['Content-Disposition'],
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Mega Calculator')
