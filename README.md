@@ -2,11 +2,6 @@
 
 ![Калькулятор в веб-версии](./public/calculator-preview.png)
 
-<div align="center">
-  <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="600" />
-</div>
-
-
 Онлайн калькулятор с сохранением истории вычислений, работой с памятью и персональными аккаунтами.
 
 ## Демонстрация
