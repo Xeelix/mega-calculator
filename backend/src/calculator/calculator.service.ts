@@ -72,4 +72,19 @@ export class CalculatorService {
     
     return calculation;
   }
+  
+  async clearHistory(userId: string) {
+    await this.calculationModel.deleteMany({ userId }).exec();
+    
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    return {
+      memory: user.calculatorState.memory,
+      currentExpression: user.calculatorState.currentExpression,
+      history: []
+    };
+  }
 } 

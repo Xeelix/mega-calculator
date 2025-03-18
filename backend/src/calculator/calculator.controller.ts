@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CalculatorService } from './calculator.service';
@@ -68,5 +68,16 @@ export class CalculatorController {
       req.user.calculatorState?.memory || 0,
       calculationResult.result.toString()
     );
+  }
+
+  @ApiOperation({ summary: 'Clear calculation history' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Returns the updated calculator state with empty history', 
+    type: CalculatorStateResponseDto 
+  })
+  @Delete('history')
+  async clearHistory(@Request() req): Promise<CalculatorStateResponseDto> {
+    return this.calculatorService.clearHistory(req.user.userId);
   }
 } 
