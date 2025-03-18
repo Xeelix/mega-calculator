@@ -2,13 +2,24 @@
 
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/auth-store";
+import { setTokenExpirationHandler } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { token } = useAuthStore();
+  const { token, handleTokenExpired } = useAuthStore();
+  const router = useRouter();
+  
+  // Set up token expiration handler
+  useEffect(() => {
+    setTokenExpirationHandler(() => {
+      handleTokenExpired();
+      router.push("/login");
+    });
+  }, [handleTokenExpired, router]);
   
   // We'll use the auth provider for any global auth state management
   // and to synchronize token between localStorage and cookies

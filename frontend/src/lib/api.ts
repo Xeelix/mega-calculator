@@ -18,6 +18,28 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// We'll set this after the auth store is defined
+let handleTokenExpiration: () => void;
+
+// Export a function to set the token expiration handler
+export const setTokenExpirationHandler = (handler: () => void) => {
+  handleTokenExpiration = handler;
+};
+
+// Add response interceptor to handle 401 errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Call the token expiration handler if it's set
+      if (handleTokenExpiration) {
+        handleTokenExpiration();
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export interface LoginCredentials {
   username: string;
   password: string;

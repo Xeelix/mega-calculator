@@ -8,15 +8,29 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function CalculatorPage() {
-  const { fetchState, isLoading } = useCalculatorStore();
+  const { fetchState, isLoading, error } = useCalculatorStore();
   const { logout } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    fetchState();
+    fetchState().catch((err) => {
+      // Error handling is now managed by the interceptor
+      // 401 errors will be handled automatically
+      if (err.response?.status !== 401) {
+        toast.error("Failed to load calculator data");
+      }
+    });
   }, [fetchState]);
+
+  // Show error if the calculator store has an error
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   const handleLogout = () => {
     logout();
@@ -37,6 +51,7 @@ export default function CalculatorPage() {
         <h1 className="text-3xl font-bold mb-6 text-center">Mega Calculator</h1>
         <Calculator />
       </div>
+      <Toaster />
     </div>
   );
 } 

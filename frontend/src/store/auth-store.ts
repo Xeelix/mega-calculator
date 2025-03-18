@@ -10,6 +10,7 @@ interface AuthState {
   error: string | null;
   login: (credentials: LoginCredentials) => Promise<boolean>;
   logout: () => void;
+  handleTokenExpired: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -54,6 +55,16 @@ export const useAuthStore = create<AuthState>()(
         // Clear from localStorage
         localStorage.removeItem("token");
       },
+      handleTokenExpired: () => {
+        set({
+          token: null,
+          isAuthenticated: false,
+          error: "Session expired. Please login again."
+        });
+        
+        // Clear from localStorage
+        localStorage.removeItem("token");
+      }
     }),
     {
       name: "auth-storage",
