@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 
 interface AuthState {
   token: string | null;
+  username: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
@@ -21,6 +22,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       token: null,
+      username: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -39,7 +41,7 @@ export const useAuthStore = create<AuthState>()(
       
       // Remove token from state and storage
       removeToken: () => {
-        set({ token: null, isAuthenticated: false });
+        set({ token: null, username: null, isAuthenticated: false });
         // Remove cookie
         Cookies.remove("token", { path: "/" });
       },
@@ -48,6 +50,8 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         try {
           const response = await authService.login(credentials);
+          // Save username
+          set({ username: credentials.username });
           // Use the setToken method
           get().setToken(response.access_token);
           set({ isLoading: false });
@@ -59,6 +63,7 @@ export const useAuthStore = create<AuthState>()(
             isLoading: false,
             isAuthenticated: false,
             token: null,
+            username: null,
           });
           toast.error(errorMessage);
           return false;
@@ -80,7 +85,11 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-      partialize: (state) => ({ token: state.token, isAuthenticated: state.isAuthenticated }),
+      partialize: (state) => ({ 
+        token: state.token, 
+        isAuthenticated: state.isAuthenticated,
+        username: state.username 
+      }),
     }
   )
 );
