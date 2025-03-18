@@ -1,6 +1,8 @@
+
+![Калькулятор в веб-версии](./public/calculator-preview.png)
+
 <div align="center">
-  <img src="./public/calculator-preview.png" alt="Страница входа на десктопе" height="400" />
-  <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="400" />
+  <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="600" />
 </div>
 
 # MEGA Calculator
