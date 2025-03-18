@@ -1,9 +1,6 @@
-
 ![Калькулятор в веб-версии](./public/calculator-preview.png)
 
-<div align="center">
-  <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="600" />
-</div>
+<img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="600" />
 
 # MEGA Calculator
 
@@ -12,18 +9,21 @@
 ## Демонстрация
 
 ### Веб-версия
+
 <div align="center">
   <img src="./public/desktop-login.jpeg" alt="Страница входа на десктопе" width="800" />
   <img src="./public/desktop-calc.jpeg" alt="Калькулятор на десктопе" width="800" />
 </div>
 
 ### Мобильная версия
+
 <div align="center">
   <img src="./public/mobile-calc.jpeg" alt="Калькулятор на мобильном устройстве" width="300" />
   <img src="./public/mobile-login.jpeg" alt="Страница входа на мобильном устройстве" width="300" />
 </div>
 
 ### API Документация
+
 ![Swagger API документация](./public/swagger-preview.jpeg)
 
 ## Функциональность
@@ -38,6 +38,7 @@
 ## Технологии
 
 ### Frontend
+
 - Next.js
 - React
 - TypeScript
@@ -46,6 +47,7 @@
 - Zustand (управление состоянием)
 
 ### Backend
+
 - NestJS
 - MongoDB
 - JWT-авторизация
@@ -83,4 +85,4 @@ npm run start:dev
 
 ## API
 
-API документация доступна по адресу [http://localhost:8000/api](http://localhost:8000/api) после запуска бэкенда. 
+API документация доступна по адресу [http://localhost:8000/api](http://localhost:8000/api) после запуска бэкенда.
