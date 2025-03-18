@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
       // Set token in state and storage
       setToken: (token: string) => {
         set({ token, isAuthenticated: true });
-        // Set cookie for middleware (7 days expiry)
+        // Set cookie for middleware (1 day expiry)
         Cookies.set("token", token, { path: "/", expires: 1, sameSite: "Strict" });
       },
       

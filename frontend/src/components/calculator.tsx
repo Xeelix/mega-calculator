@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 export function Calculator() {
   const {
@@ -189,8 +190,28 @@ export function Calculator() {
                 size="sm"
                 onClick={toggleShowHistory}
                 aria-label="Toggle history"
+                className="relative overflow-hidden group"
               >
-                <History className="h-4 w-4" />
+                <motion.div
+                  animate={{
+                    rotate: showHistory ? 360 : 0
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 300
+                  }}
+                >
+                  <History className="h-4 w-4" />
+                </motion.div>
+                <motion.div
+                  className="absolute inset-0 bg-primary/10 dark:bg-primary/5 rounded-sm"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 0, opacity: 0 }}
+                  whileTap={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                />
               </Button>
               <div className="flex items-center gap-1 text-xs bg-secondary/50 px-2 py-1 rounded-md">
                 <Brain className="h-3 w-3" />
