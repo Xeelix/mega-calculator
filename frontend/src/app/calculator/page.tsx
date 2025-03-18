@@ -48,7 +48,6 @@ export default function CalculatorPage() {
       </div>
       
       <div className="flex flex-col items-center justify-center flex-1">
-        <h1 className="text-3xl font-bold mb-6 text-center">Mega Calculator</h1>
         <Calculator />
       </div>
       <Toaster />

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Mega Calculator",
-  description: "Web calculator with memory functions and calculation history",
+  description: "Calculator with memory functions and calculation history",
 };
 
 export default function RootLayout({

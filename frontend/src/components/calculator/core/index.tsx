@@ -17,7 +17,7 @@ import { CalculatorKeypad } from "../keypad/calculator-keypad";
 import { HistorySection } from "../history/history-section";
 import { HistoryToggleButton } from "../history/history-toggle-button";
 import { MemoryDisplay } from "../memory/memory-display";
-
+import { Calculator as CalculatorIcon } from "lucide-react";
 export function Calculator() {
   const {
     currentExpression,
@@ -182,7 +182,12 @@ export function Calculator() {
       <Card className="shadow-md">
         <CardHeader className="pb-4">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-xl">Calculator</CardTitle>
+            <CardTitle className="text-xl">
+              <div className="flex items-center gap-2">
+                <CalculatorIcon className="h-6 w-6" />
+                Mega Calculator
+              </div>
+            </CardTitle>
             <div className="flex items-center gap-2">
               <HistoryToggleButton 
                 showHistory={showHistory} 
