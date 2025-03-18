@@ -52,6 +52,8 @@ export function Calculator() {
         handleBackspace();
       } else if (key === "Escape") {
         handleClear();
+      } else if (key === "(" || key === ")") {
+        handleParenthesis(key);
       }
     };
 
@@ -161,6 +163,20 @@ export function Calculator() {
     }
   };
 
+  // Handle parenthesis
+  const handleParenthesis = (parenthesis: string) => {
+    if (currentExpression === "0") {
+      setCurrentExpression(parenthesis);
+    } else {
+      // Check if we need to add a multiplication operator before opening parenthesis
+      if (parenthesis === "(" && /[0-9)]$/.test(currentExpression)) {
+        setCurrentExpression(currentExpression + "*" + parenthesis);
+      } else {
+        setCurrentExpression(currentExpression + parenthesis);
+      }
+    }
+  };
+
   return (
     <div className="w-full max-w-md">
       <Card className="shadow-md">
@@ -207,6 +223,7 @@ export function Calculator() {
               handleDecimal={handleDecimal}
               handleClear={handleClear}
               handleBackspace={handleBackspace}
+              handleParenthesis={handleParenthesis}
             />
           </div>
         </CardContent>

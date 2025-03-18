@@ -8,7 +8,8 @@ export type KeypadAction =
   | "equals" 
   | "decimal" 
   | "clear" 
-  | "backspace";
+  | "backspace"
+  | "parenthesis";
 
 export interface KeypadButton {
   value: string;
@@ -21,7 +22,8 @@ export interface KeypadButton {
 
 // Standard calculator layout
 export const standardKeypadLayout: KeypadButton[] = [
-  { value: "clear", label: "Clear", type: "function", action: "clear", colSpan: 2 },
+  { value: "(", label: "(", type: "operator", action: "parenthesis" },
+  { value: ")", label: ")", type: "operator", action: "parenthesis" },
   { value: "backspace", icon: Delete, type: "function", action: "backspace" },
   { value: "/", icon: Divide, type: "operator", action: "operator" },
   
@@ -40,7 +42,8 @@ export const standardKeypadLayout: KeypadButton[] = [
   { value: "3", type: "number", action: "number" },
   { value: "+", icon: Plus, type: "operator", action: "operator" },
   
-  { value: "0", type: "number", action: "number", colSpan: 2 },
+  { value: "clear", label: "C", type: "function", action: "clear" },
+  { value: "0", type: "number", action: "number" },
   { value: ".", type: "number", action: "decimal" },
   { value: "=", type: "equals", action: "equals" },
 ]; 

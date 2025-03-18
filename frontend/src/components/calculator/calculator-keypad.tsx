@@ -10,6 +10,7 @@ interface CalculatorKeypadProps {
   handleDecimal: () => void;
   handleClear: () => void;
   handleBackspace: () => void;
+  handleParenthesis: (parenthesis: string) => void;
   layout?: KeypadButton[]; // Optional custom layout
 }
 
@@ -20,6 +21,7 @@ export function CalculatorKeypad({
   handleDecimal,
   handleClear,
   handleBackspace,
+  handleParenthesis,
   layout = standardKeypadLayout, // Default to standard layout
 }: CalculatorKeypadProps) {
   // Handler map for different button actions
@@ -30,6 +32,7 @@ export function CalculatorKeypad({
     decimal: () => handleDecimal(),
     clear: () => handleClear(),
     backspace: () => handleBackspace(),
+    parenthesis: handleParenthesis,
   };
 
   // Handle button click by dispatching to the appropriate handler
