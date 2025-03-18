@@ -96,6 +96,11 @@ export const calculatorService = {
     const response = await api.post<CalculatorState>("/calculator/save-calculation", calculation);
     return response.data;
   },
+
+  clearHistory: async (): Promise<CalculatorState> => {
+    const response = await api.delete<CalculatorState>("/calculator/history");
+    return response.data;
+  },
 };
 
 export default api; 

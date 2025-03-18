@@ -15,7 +15,7 @@ interface CalculatorStore extends CalculatorState {
   setMemory: (value: number) => void;
   clearMemory: () => void;
   clearCurrentExpression: () => void;
-  clearHistory: () => void;
+  clearHistory: () => Promise<void>;
   toggleShowHistory: () => void;
 }
 
@@ -140,10 +140,20 @@ export const useCalculatorStore = create<CalculatorStore>()(
           set({ currentExpression: "0" });
         },
 
-        clearHistory: () => {
-          set({ history: [] });
-          get().updateState();
-          toast.info("History cleared");
+        clearHistory: async () => {
+          set({ isLoading: true });
+          try {
+            const updatedState = await calculatorService.clearHistory();
+            set({ 
+              ...updatedState,
+              isLoading: false 
+            });
+            toast.info("History cleared");
+          } catch (error) {
+            console.error("Failed to clear history:", error);
+            set({ isLoading: false });
+            toast.error("Failed to clear history");
+          }
         },
 
         toggleShowHistory: () => {
