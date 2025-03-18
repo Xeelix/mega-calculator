@@ -7,8 +7,8 @@
 
 ### Веб-версия
 <div align="center">
-  <img src="./public/desktop-login.png" alt="Страница входа на десктопе" width="300" />
-  <img src="./public/desktop-calc.png" alt="Калькулятор на десктопе" width="300" />
+  <img src="./public/desktop-login.png" alt="Страница входа на десктопе" width="800" />
+  <img src="./public/desktop-calc.png" alt="Калькулятор на десктопе" width="800" />
 </div>
 
 ### Мобильная версия
