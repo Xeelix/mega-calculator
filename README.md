@@ -1,3 +1,4 @@
+# MEGA Calculator
 
 ![Калькулятор в веб-версии](./public/calculator-preview.png)
 
@@ -5,7 +6,6 @@
   <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="600" />
 </div>
 
-# MEGA Calculator
 
 Онлайн калькулятор с сохранением истории вычислений, работой с памятью и персональными аккаунтами.
 
