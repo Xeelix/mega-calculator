@@ -56,7 +56,7 @@ docker-compose up -d
 
 Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000)
 
-Swagger API доступно по адресу [http://localhost:8000/api](http://localhost:8000/api)
+Swagger API доступен по адресу [http://localhost:8000/api](http://localhost:8000/api)
 
 ## Разработка
 
