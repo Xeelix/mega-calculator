@@ -100,14 +100,13 @@ export function Calculator() {
     }
 
     try {
-      // Validate expression structure before submitting
-      // This is a simple check to catch basic syntax errors
+      // First validate expression structure before calculating
       // eslint-disable-next-line no-new-func
       new Function(`return ${currentExpression}`)();
-
+      
+      // If validation passes, proceed with calculation
       await calculate(currentExpression);
     } catch (error) {
-      // If local validation fails, don't send to API
       console.error("Invalid expression:", error);
       toast.error("Invalid expression");
     }

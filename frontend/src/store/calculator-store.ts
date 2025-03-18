@@ -66,20 +66,48 @@ export const useCalculatorStore = create<CalculatorStore>()(
         calculate: async (expression: string) => {
           set({ isLoading: true, error: null });
           try {
-            const result = await calculatorService.calculate({ expression });
+            // Perform calculation in the frontend
+            // eslint-disable-next-line no-new-func
+            const calculatedResult = new Function(`return ${expression}`)();
+            const result = parseFloat(calculatedResult.toFixed(10));
             
-            // Add the new calculation to history
-            const newHistory = [...get().history, result];
+            // Create calculation object
+            const newCalculation = {
+              expression,
+              result,
+              timestamp: new Date().toISOString()
+            };
             
-            // Update state with new calculation
-            set({
-              history: newHistory,
-              currentExpression: result && result.result !== undefined ? result.result.toString() : "0",
-              isLoading: false,
-            });
+            // Save calculation to backend
+            let updatedState;
+            try {
+              updatedState = await calculatorService.saveCalculation({ 
+                expression, 
+                result 
+              });
+            } catch (error) {
+              console.error("Failed to save calculation to server, continuing with local update only");
+              // Continue with local update only if server save fails
+              updatedState = null;
+            }
             
-            // Save the updated state
-            await get().updateState();
+            // If we got an updated state from the server, use it, otherwise update locally
+            if (updatedState) {
+              set({
+                ...updatedState,
+                isLoading: false,
+              });
+            } else {
+              // Add the new calculation to history
+              const newHistory = [...get().history, newCalculation];
+              
+              // Update state with new calculation
+              set({
+                history: newHistory,
+                currentExpression: result.toString(),
+                isLoading: false,
+              });
+            }
           } catch (error) {
             console.error(error);
             set({ 
@@ -109,7 +137,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
         },
 
         clearCurrentExpression: () => {
-          set({ currentExpression: "" });
+          set({ currentExpression: "0" });
         },
 
         clearHistory: () => {

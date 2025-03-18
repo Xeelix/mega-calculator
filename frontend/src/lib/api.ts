@@ -72,6 +72,7 @@ export interface CalculatorState {
 
 export interface CalculateRequest {
   expression: string;
+  result: number;
 }
 
 export const authService = {
@@ -91,8 +92,8 @@ export const calculatorService = {
     await api.post("/calculator/state", state);
   },
 
-  calculate: async (request: CalculateRequest): Promise<CalculationDto> => {
-    const response = await api.post<CalculationDto>("/calculator/calculate", request);
+  saveCalculation: async (calculation: CalculateRequest): Promise<CalculatorState> => {
+    const response = await api.post<CalculatorState>("/calculator/save-calculation", calculation);
     return response.data;
   },
 };
