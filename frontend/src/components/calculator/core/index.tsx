@@ -12,11 +12,11 @@ import {
 import { useCalculatorStore } from "@/store/calculator-store";
 import { toast } from "sonner";
 import { CalculatorDisplay } from "./calculator-display";
-import { MemoryControls } from "./memory-controls";
-import { CalculatorKeypad } from "./calculator-keypad";
-import { HistorySection } from "./history-section";
-import { HistoryToggleButton } from "./history-toggle-button";
-import { MemoryDisplay } from "./memory-display";
+import { MemoryControls } from "../memory/memory-controls";
+import { CalculatorKeypad } from "../keypad/calculator-keypad";
+import { HistorySection } from "../history/history-section";
+import { HistoryToggleButton } from "../history/history-toggle-button";
+import { MemoryDisplay } from "../memory/memory-display";
 
 export function Calculator() {
   const {

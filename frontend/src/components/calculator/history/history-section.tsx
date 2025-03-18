@@ -54,7 +54,7 @@ export function HistorySection({
                 key={index}
                 className="flex flex-col p-3 rounded-md bg-secondary/20 hover:bg-secondary/30 transition-colors text-sm cursor-pointer"
                 onClick={() =>
-                  setCurrentExpression(calculation.result.toString())
+                  setCurrentExpression(calculation.expression.toString())
                 }
               >
                 <div className="flex justify-between items-center mb-1">

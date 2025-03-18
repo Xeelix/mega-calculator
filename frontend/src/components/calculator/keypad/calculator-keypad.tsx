@@ -1,6 +1,6 @@
 "use client";
 
-import { CalculatorButton } from "./calculator-button";
+import { CalculatorButton } from "../core/calculator-button";
 import { KeypadButton, KeypadAction, standardKeypadLayout } from "./keypad-config";
 
 interface CalculatorKeypadProps {
