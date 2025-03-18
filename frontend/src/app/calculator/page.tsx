@@ -25,7 +25,6 @@ export default function CalculatorPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
-      <Toaster />
       
       <div className="flex justify-end mb-4">
         <Button variant="outline" size="sm" onClick={handleLogout}>
