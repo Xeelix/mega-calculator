@@ -1,23 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useCalculatorStore } from "@/store/calculator-store";
+import { Calculator } from "@/components/calculator";
+import { Toaster } from "@/components/ui/sonner";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
+import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CalculationDto } from "@/lib/api";
-import { Calculator, LogOut, History } from "lucide-react";
 
 export default function CalculatorPage() {
-  const router = useRouter();
+  const { fetchState, isLoading } = useCalculatorStore();
   const { logout } = useAuthStore();
-  const { 
-    currentExpression, 
-    memory, 
-    history, 
-    fetchState,
-    isLoading
-  } = useCalculatorStore();
+  const router = useRouter();
 
   useEffect(() => {
     fetchState();
@@ -29,58 +24,20 @@ export default function CalculatorPage() {
   };
 
   return (
-    <div className="min-h-screen p-4 flex flex-col items-center">
-      <div className="w-full max-w-md flex justify-between items-center mb-8">
-        <div className="flex items-center gap-2">
-          <Calculator className="h-6 w-6 mr-2" />
-          <h1 className="text-2xl font-bold">Mega Calculator</h1>
-        </div>
-        <Button variant="outline" onClick={handleLogout}>
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
+      <Toaster />
+      
+      <div className="flex justify-end mb-4">
+        <Button variant="outline" size="sm" onClick={handleLogout}>
           <LogOut className="h-4 w-4 mr-2" />
           Logout
         </Button>
       </div>
       
-      {isLoading ? (
-        <div className="w-full max-w-md p-8 text-center">Loading calculator...</div>
-      ) : (
-        <div className="w-full max-w-md">
-          <div className="p-4 border rounded-md mb-4">
-            <p>Current Expression: {currentExpression || "0"}</p>
-            <p>Memory: {memory}</p>
-          </div>
-          
-          <div className="rounded-lg border border-border/40 bg-card/30 backdrop-blur-sm shadow-sm p-5 mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <History className="h-5 w-5 text-primary" />
-                <h2 className="text-lg font-medium">History</h2>
-              </div>
-              {history.length > 0 && (
-                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground">
-                  Clear
-                </Button>
-              )}
-            </div>
-            
-            {history.length === 0 ? (
-              <p className="text-muted-foreground text-sm text-center py-4">No calculations yet</p>
-            ) : (
-              <ul className="space-y-3">
-                {history.map((calc: CalculationDto, index: number) => (
-                  <li 
-                    key={index} 
-                    className="px-4 py-3 rounded-md bg-background/50 hover:bg-accent/70 transition-colors flex justify-between items-center"
-                  >
-                    <span className="text-muted-foreground">{calc.expression}</span>
-                    <span className="font-medium">{calc.result}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      )}
+      <div className="flex flex-col items-center justify-center flex-1">
+        <h1 className="text-3xl font-bold mb-6 text-center">Mega Calculator</h1>
+        <Calculator />
+      </div>
     </div>
   );
 } 

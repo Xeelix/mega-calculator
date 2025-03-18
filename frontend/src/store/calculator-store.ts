@@ -56,13 +56,14 @@ export const useCalculatorStore = create<CalculatorStore>((set, get) => ({
       // Update state with new calculation
       set({
         history: newHistory,
-        currentExpression: result.result.toString(),
+        currentExpression: result && result.result !== undefined ? result.result.toString() : "0",
         isLoading: false,
       });
       
       // Save the updated state
       await get().updateState();
     } catch (error) {
+      console.error(error);
       set({ 
         isLoading: false, 
         error: "Failed to perform calculation" 
