@@ -1,10 +1,12 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-
 export default function Home() {
+  // This page will be handled by middleware which will redirect
+  // to the appropriate location based on auth status
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <Button>Click me</Button>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-4">Mega Calculator</h1>
+        <p>Loading...</p>
+      </div>
     </div>
   );
 }
