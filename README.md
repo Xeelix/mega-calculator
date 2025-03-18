@@ -1,4 +1,8 @@
-![Калькулятор в веб-версии](./public/calculator-preview.png)
+<div align="center">
+  <img src="./public/calculator-preview.png" alt="Страница входа на десктопе" height="400" />
+  <img src="./public/calculator-preview-mobile.png" alt="Калькулятор на десктопе" height="400" />
+</div>
+
 # MEGA Calculator
 
 Онлайн калькулятор с сохранением истории вычислений, работой с памятью и персональными аккаунтами.
@@ -7,25 +11,25 @@
 
 ### Веб-версия
 <div align="center">
-  <img src="./public/desktop-login.png" alt="Страница входа на десктопе" width="800" />
-  <img src="./public/desktop-calc.png" alt="Калькулятор на десктопе" width="800" />
+  <img src="./public/desktop-login.jpeg" alt="Страница входа на десктопе" width="800" />
+  <img src="./public/desktop-calc.jpeg" alt="Калькулятор на десктопе" width="800" />
 </div>
 
 ### Мобильная версия
 <div align="center">
-  <img src="./public/mobile-calc.png" alt="Калькулятор на мобильном устройстве" width="300" />
-  <img src="./public/mobile-login.png" alt="Страница входа на мобильном устройстве" width="300" />
+  <img src="./public/mobile-calc.jpeg" alt="Калькулятор на мобильном устройстве" width="300" />
+  <img src="./public/mobile-login.jpeg" alt="Страница входа на мобильном устройстве" width="300" />
 </div>
 
 ### API Документация
-![Swagger API документация](./public/swagger-preview.png)
+![Swagger API документация](./public/swagger-preview.jpeg)
 
 ## Функциональность
 
 - Математические расчеты с поддержкой различных операций
 - Сохранение истории вычислений
 - Функции памяти калькулятора (сохранение, вызов, сложение, вычитание)
-- Регистрация и авторизация пользователей
+- Авторизация пользователей
 - Поддержка светлой и темной темы
 - Адаптивный дизайн для мобильных устройств
 
