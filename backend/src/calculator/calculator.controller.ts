@@ -5,8 +5,7 @@ import { CalculatorService } from './calculator.service';
 import { 
   CalculatorStateResponseDto, 
   CalculatorStateUpdateDto, 
-  CalculateRequestDto,
-  CalculationDto
+  CalculationResultDto
 } from './dto/calculator-state.dto';
 
 @ApiTags('calculator')
@@ -45,37 +44,29 @@ export class CalculatorController {
     );
   }
 
-  @ApiOperation({ summary: 'Perform a calculation and save it to history' })
+  @ApiOperation({ summary: 'Save a calculation result to history' })
   @ApiResponse({ 
     status: 200, 
-    description: 'Returns the result of the calculation and updated state', 
+    description: 'Returns the updated calculator state', 
     type: CalculatorStateResponseDto 
   })
-  @Post('calculate')
-  async calculate(
+  @Post('save-calculation')
+  async saveCalculation(
     @Request() req,
-    @Body() calculateDto: CalculateRequestDto,
+    @Body() calculationResult: CalculationResultDto,
   ): Promise<CalculatorStateResponseDto> {
-    let result: number;
-    try {
-      // NOTE: I'm using eval for demonstration purposes. In a real app, it should be a safer evaluation method
-      result = eval(calculateDto.expression);
-    } catch (error) {
-      result = NaN;
-    }
-    
     // Save calculation to history
     await this.calculatorService.addCalculation(
       req.user.userId, 
-      calculateDto.expression, 
-      result
+      calculationResult.expression, 
+      calculationResult.result
     );
     
     // Update current expression with the result
     return this.calculatorService.updateState(
       req.user.userId,
       req.user.calculatorState?.memory || 0,
-      result.toString()
+      calculationResult.result.toString()
     );
   }
 } 

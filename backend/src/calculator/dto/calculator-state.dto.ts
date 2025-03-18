@@ -66,4 +66,20 @@ export class CalculateRequestDto {
   })
   @IsString()
   expression: string;
+}
+
+export class CalculationResultDto {
+  @ApiProperty({
+    description: 'The expression that was calculated',
+    example: '5+5',
+  })
+  @IsString()
+  expression: string;
+
+  @ApiProperty({
+    description: 'The result of the calculation',
+    example: 10,
+  })
+  @IsNumber()
+  result: number;
 } 
