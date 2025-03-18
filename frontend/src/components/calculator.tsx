@@ -32,6 +32,8 @@ export function Calculator() {
     memory,
     history,
     isLoading,
+    showHistory,
+    toggleShowHistory,
     setCurrentExpression,
     calculate,
     setMemory,
@@ -41,7 +43,6 @@ export function Calculator() {
   } = useCalculatorStore();
 
   const [displayValue, setDisplayValue] = useState("0");
-  const [showHistory, setShowHistory] = useState(false);
 
   // Update the display value when currentExpression changes
   useEffect(() => {
@@ -186,7 +187,7 @@ export function Calculator() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setShowHistory(!showHistory)}
+                onClick={toggleShowHistory}
                 aria-label="Toggle history"
               >
                 <History className="h-4 w-4" />
