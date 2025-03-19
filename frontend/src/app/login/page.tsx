@@ -2,7 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { Calculator } from "lucide-react";
 import { LoginForm, LoginFormValues } from "@/components/login/login-form";
 import { DemoAccounts, DemoAccount } from "@/components/login/demo-accounts";
@@ -17,7 +23,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
 export default function LoginPage() {
   const router = useRouter();
   const { login, isLoading, error } = useAuthStore();
-  
+
   const handleSubmit = async (data: LoginFormValues) => {
     const success = await login(data);
     if (success) {
@@ -26,7 +32,7 @@ export default function LoginPage() {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -35,7 +41,7 @@ export default function LoginPage() {
       <div className="absolute top-4 left-4">
         <ThemeToggle />
       </div>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -44,38 +50,40 @@ export default function LoginPage() {
       >
         <Card className="border-border/50 backdrop-blur-sm shadow-md dark:shadow-lg overflow-hidden">
           <CardHeader className="pb-1">
-            <motion.div 
+            <motion.div
               className="flex justify-center mb-4"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ 
+              transition={{
                 delay: 0.2,
-                duration: 0.8, 
+                duration: 0.8,
                 type: "spring",
-                stiffness: 300
+                stiffness: 300,
               }}
             >
               <div className="p-2">
                 <Calculator className="h-10 w-10 text-primary" />
               </div>
             </motion.div>
-            <CardTitle className="text-2xl text-center">Mega Calculator</CardTitle>
+            <CardTitle className="text-2xl text-center">
+              Mega Calculator
+            </CardTitle>
             <CardDescription className="text-center text-muted-foreground">
               Login to access your calculator
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="pb-8 px-6 bg-card/95">
-            <LoginForm 
+            <LoginForm
               onSubmit={handleSubmit}
               isLoading={isLoading}
               error={error || undefined}
             />
-            
+
             <DemoAccounts accounts={DEMO_ACCOUNTS} />
           </CardContent>
         </Card>
       </motion.div>
     </motion.div>
   );
-} 
+}

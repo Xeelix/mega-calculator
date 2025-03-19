@@ -47,11 +47,12 @@ export function CalculatorButton({
       onClick={onClick}
       className={cn(
         colSpan === 2 && "col-span-2",
-        type === "equals" && "bg-primary text-primary-foreground hover:bg-primary/90",
+        type === "equals" &&
+          "bg-primary text-primary-foreground hover:bg-primary/90",
         className
       )}
     >
       {Icon ? <Icon className="h-4 w-4" /> : children || value}
     </Button>
   );
-} 
+}

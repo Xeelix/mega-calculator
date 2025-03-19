@@ -72,4 +72,4 @@ export function HistorySection({
       </div>
     </div>
   );
-} 
+}

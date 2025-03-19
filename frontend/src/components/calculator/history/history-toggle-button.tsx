@@ -23,13 +23,13 @@ export function HistoryToggleButton({
     >
       <motion.div
         animate={{
-          rotate: showHistory ? 360 : 0
+          rotate: showHistory ? 360 : 0,
         }}
         whileTap={{ scale: 0.9 }}
         transition={{
           duration: 0.5,
           type: "spring",
-          stiffness: 300
+          stiffness: 300,
         }}
       >
         <History className="h-4 w-4" />
@@ -43,4 +43,4 @@ export function HistoryToggleButton({
       />
     </Button>
   );
-} 
+}

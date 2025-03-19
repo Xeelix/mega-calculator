@@ -14,24 +14,24 @@ export const memoryControlsConfig: MemoryAction[] = [
     type: "add",
     label: "M+",
     icon: Plus,
-    description: "Add current value to memory"
+    description: "Add current value to memory",
   },
   {
     type: "subtract",
     label: "M-",
     icon: Minus,
-    description: "Subtract current value from memory"
+    description: "Subtract current value from memory",
   },
   {
     type: "recall",
     label: "MR",
     icon: CornerDownLeft,
-    description: "Recall memory value"
+    description: "Recall memory value",
   },
   {
     type: "clear",
     label: "MC",
     icon: Trash2,
-    description: "Clear memory"
-  }
-]; 
+    description: "Clear memory",
+  },
+];

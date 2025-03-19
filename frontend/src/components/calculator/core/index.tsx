@@ -62,9 +62,8 @@ export function Calculator() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentExpression]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentExpression]);
 
-  // Handle numeric input
   const handleNumberInput = (num: string) => {
     if (currentExpression === "0" || currentExpression === "") {
       setCurrentExpression(num);
@@ -73,9 +72,7 @@ export function Calculator() {
     }
   };
 
-  // Handle operator input
   const handleOperatorInput = (operator: string) => {
-    // Avoid consecutive operators
     const lastChar = currentExpression.slice(-1);
     if (["+", "-", "*", "/"].includes(lastChar)) {
       setCurrentExpression(currentExpression.slice(0, -1) + operator);
@@ -105,7 +102,7 @@ export function Calculator() {
       // First validate expression structure before calculating
       // eslint-disable-next-line no-new-func
       new Function(`return ${currentExpression}`)();
-      
+
       // If validation passes, proceed with calculation
       await calculate(currentExpression);
     } catch (error) {
@@ -189,9 +186,9 @@ export function Calculator() {
               </div>
             </CardTitle>
             <div className="flex items-center gap-2">
-              <HistoryToggleButton 
-                showHistory={showHistory} 
-                toggleShowHistory={toggleShowHistory} 
+              <HistoryToggleButton
+                showHistory={showHistory}
+                toggleShowHistory={toggleShowHistory}
               />
               <MemoryDisplay memory={memory} />
             </div>
@@ -206,14 +203,14 @@ export function Calculator() {
         <CardContent>
           <div className="space-y-4">
             {/* Display */}
-            <CalculatorDisplay 
+            <CalculatorDisplay
               currentExpression={currentExpression}
               setCurrentExpression={setCurrentExpression}
               handleClear={handleClear}
             />
 
             {/* Memory buttons */}
-            <MemoryControls 
+            <MemoryControls
               handleMemoryAdd={handleMemoryAdd}
               handleMemorySubtract={handleMemorySubtract}
               handleMemoryRecall={handleMemoryRecall}
@@ -221,7 +218,7 @@ export function Calculator() {
             />
 
             {/* Calculator buttons */}
-            <CalculatorKeypad 
+            <CalculatorKeypad
               handleNumberInput={handleNumberInput}
               handleOperatorInput={handleOperatorInput}
               handleEquals={handleEquals}
@@ -235,7 +232,7 @@ export function Calculator() {
 
         {/* History section */}
         <CardFooter className="p-2 block w-full">
-          <HistorySection 
+          <HistorySection
             showHistory={showHistory}
             history={history}
             clearHistory={clearHistory}
@@ -245,4 +242,4 @@ export function Calculator() {
       </Card>
     </div>
   );
-} 
+}

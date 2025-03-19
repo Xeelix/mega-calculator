@@ -11,9 +11,9 @@ interface MemoryDisplayProps {
 
 export function MemoryDisplay({ memory, className }: MemoryDisplayProps) {
   const hasMemory = memory !== 0;
-  
+
   return (
-    <div 
+    <div
       className={cn(
         "flex items-center gap-1 text-xs px-2 py-1 rounded-md transition-colors",
         hasMemory ? "bg-secondary/50" : "bg-secondary/20",
@@ -22,9 +22,9 @@ export function MemoryDisplay({ memory, className }: MemoryDisplayProps) {
     >
       <motion.div
         initial={{ scale: 0.9 }}
-        animate={{ 
+        animate={{
           scale: hasMemory ? 1.1 : 0.9,
-          opacity: hasMemory ? 1 : 0.7
+          opacity: hasMemory ? 1 : 0.7,
         }}
         transition={{ duration: 0.2 }}
       >
@@ -33,4 +33,4 @@ export function MemoryDisplay({ memory, className }: MemoryDisplayProps) {
       <span className="font-mono">{memory}</span>
     </div>
   );
-} 
+}

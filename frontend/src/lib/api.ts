@@ -86,12 +86,19 @@ export const calculatorService = {
     return response.data;
   },
 
-  updateState: async (state: Omit<CalculatorState, "history">): Promise<void> => {
+  updateState: async (
+    state: Omit<CalculatorState, "history">
+  ): Promise<void> => {
     await api.post("/calculator/state", state);
   },
 
-  saveCalculation: async (calculation: CalculateRequest): Promise<CalculatorState> => {
-    const response = await api.post<CalculatorState>("/calculator/save-calculation", calculation);
+  saveCalculation: async (
+    calculation: CalculateRequest
+  ): Promise<CalculatorState> => {
+    const response = await api.post<CalculatorState>(
+      "/calculator/save-calculation",
+      calculation
+    );
     return response.data;
   },
 
@@ -101,4 +108,4 @@ export const calculatorService = {
   },
 };
 
-export default api; 
+export default api;

@@ -26,26 +26,30 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
       error: null,
-      
+
       // Get token from state
       getToken: () => {
         return get().token;
       },
-      
+
       // Set token in state and storage
       setToken: (token: string) => {
         set({ token, isAuthenticated: true });
         // Set cookie for middleware (1 day expiry)
-        Cookies.set("token", token, { path: "/", expires: 1, sameSite: "Strict" });
+        Cookies.set("token", token, {
+          path: "/",
+          expires: 1,
+          sameSite: "Strict",
+        });
       },
-      
+
       // Remove token from state and storage
       removeToken: () => {
         set({ token: null, username: null, isAuthenticated: false });
         // Remove cookie
         Cookies.remove("token", { path: "/" });
       },
-      
+
       login: async (credentials) => {
         set({ isLoading: true, error: null });
         try {
@@ -69,26 +73,26 @@ export const useAuthStore = create<AuthState>()(
           return false;
         }
       },
-      
+
       logout: () => {
         // Use the removeToken method
         get().removeToken();
       },
-      
+
       handleTokenExpired: () => {
         // Use the removeToken method
         get().removeToken();
         set({ error: "Session expired. Please login again." });
         // Show toast notification
         toast.error("Your session has expired. Please login again.");
-      }
+      },
     }),
     {
       name: "auth-storage",
-      partialize: (state) => ({ 
-        token: state.token, 
+      partialize: (state) => ({
+        token: state.token,
         isAuthenticated: state.isAuthenticated,
-        username: state.username 
+        username: state.username,
       }),
     }
   )

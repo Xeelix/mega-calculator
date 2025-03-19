@@ -22,17 +22,26 @@ interface LoginFormProps {
   defaultValues?: Partial<LoginFormValues>;
 }
 
-export function LoginForm({ onSubmit, isLoading, error, defaultValues }: LoginFormProps) {
+export function LoginForm({
+  onSubmit,
+  isLoading,
+  error,
+  defaultValues,
+}: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
-  
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: defaultValues || {
       username: "",
       password: "",
     },
   });
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
@@ -50,7 +59,7 @@ export function LoginForm({ onSubmit, isLoading, error, defaultValues }: LoginFo
           <p className="text-sm text-red-500">{errors.username.message}</p>
         )}
       </div>
-      
+
       <div className="space-y-2">
         <div className="relative">
           <Input
@@ -61,19 +70,23 @@ export function LoginForm({ onSubmit, isLoading, error, defaultValues }: LoginFo
             {...register("password")}
           />
           <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <button 
+          <button
             type="button"
             className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
           </button>
         </div>
         {errors.password && (
           <p className="text-sm text-red-500">{errors.password.message}</p>
         )}
       </div>
-      
+
       <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? (
           <>Loading...</>
@@ -84,10 +97,8 @@ export function LoginForm({ onSubmit, isLoading, error, defaultValues }: LoginFo
           </>
         )}
       </Button>
-      
-      {error && (
-        <p className="text-sm text-red-500 text-center">{error}</p>
-      )}
+
+      {error && <p className="text-sm text-red-500 text-center">{error}</p>}
     </form>
   );
-} 
+}

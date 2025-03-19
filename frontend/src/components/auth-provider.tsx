@@ -12,19 +12,19 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const { token, setToken, handleTokenExpired, getToken } = useAuthStore();
   const router = useRouter();
-  
+
   // Set up token getter and expiration handler
   useEffect(() => {
     // Set the token getter for API requests
     setTokenGetter(getToken);
-    
+
     // Set up token expiration handler
     setTokenExpirationHandler(() => {
       handleTokenExpired();
       router.push("/login");
     });
   }, [handleTokenExpired, getToken, router]);
-  
+
   // Initialize token from localStorage on first load if needed
   useEffect(() => {
     // This is only needed once during initialization
@@ -41,4 +41,4 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [token, setToken]);
 
   return <>{children}</>;
-} 
+}

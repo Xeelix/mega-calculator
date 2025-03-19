@@ -46,9 +46,9 @@ export const useCalculatorStore = create<CalculatorStore>()(
             const state = await calculatorService.getState();
             set({ ...state, isLoading: false });
           } catch (error) {
-            set({ 
-              isLoading: false, 
-              error: "Failed to fetch calculator state" 
+            set({
+              isLoading: false,
+              error: "Failed to fetch calculator state",
             });
             toast.error("Failed to fetch calculator state");
           }
@@ -70,27 +70,29 @@ export const useCalculatorStore = create<CalculatorStore>()(
             // eslint-disable-next-line no-new-func
             const calculatedResult = new Function(`return ${expression}`)();
             const result = parseFloat(calculatedResult.toFixed(10));
-            
+
             // Create calculation object
             const newCalculation = {
               expression,
               result,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
             };
-            
+
             // Save calculation to backend
             let updatedState;
             try {
-              updatedState = await calculatorService.saveCalculation({ 
-                expression, 
-                result 
+              updatedState = await calculatorService.saveCalculation({
+                expression,
+                result,
               });
             } catch (error) {
-              console.error("Failed to save calculation to server, continuing with local update only");
+              console.error(
+                "Failed to save calculation to server, continuing with local update only"
+              );
               // Continue with local update only if server save fails
               updatedState = null;
             }
-            
+
             // If we got an updated state from the server, use it, otherwise update locally
             if (updatedState) {
               set({
@@ -100,7 +102,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
             } else {
               // Add the new calculation to history
               const newHistory = [...get().history, newCalculation];
-              
+
               // Update state with new calculation
               set({
                 history: newHistory,
@@ -110,9 +112,9 @@ export const useCalculatorStore = create<CalculatorStore>()(
             }
           } catch (error) {
             console.error(error);
-            set({ 
-              isLoading: false, 
-              error: "Failed to perform calculation" 
+            set({
+              isLoading: false,
+              error: "Failed to perform calculation",
             });
             toast.error("Failed to perform calculation");
           }
@@ -144,9 +146,9 @@ export const useCalculatorStore = create<CalculatorStore>()(
           set({ isLoading: true });
           try {
             const updatedState = await calculatorService.clearHistory();
-            set({ 
+            set({
               ...updatedState,
-              isLoading: false 
+              isLoading: false,
             });
             toast.info("History cleared");
           } catch (error) {
@@ -158,7 +160,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
 
         toggleShowHistory: () => {
           set((state) => ({ showHistory: !state.showHistory }));
-        }
+        },
       };
     },
     {

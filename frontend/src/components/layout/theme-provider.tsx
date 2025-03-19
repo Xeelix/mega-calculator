@@ -10,14 +10,14 @@ type ThemeProviderProps = {
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <NextThemesProvider 
-      attribute="class" 
-      defaultTheme="light" 
-      enableSystem 
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
       disableTransitionOnChange
       {...props}
     >
       {children}
     </NextThemesProvider>
   );
-} 
+}

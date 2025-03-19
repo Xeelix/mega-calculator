@@ -27,11 +27,13 @@ export function DemoAccounts({ accounts }: DemoAccountsProps) {
         <Info className="h-4 w-4 mr-2" />
         {showDemo ? "Hide Demo Accounts" : "Show Demo Accounts"}
       </Button>
-      
+
       {showDemo && (
         <div className="mt-4 rounded-lg overflow-hidden border border-border">
           <div className="bg-muted px-4 py-2 border-b border-border">
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Demo Accounts</p>
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              Demo Accounts
+            </p>
           </div>
           <div className="divide-y divide-border">
             {accounts.map((account, index) => (
@@ -46,4 +48,4 @@ export function DemoAccounts({ accounts }: DemoAccountsProps) {
       )}
     </div>
   );
-} 
+}

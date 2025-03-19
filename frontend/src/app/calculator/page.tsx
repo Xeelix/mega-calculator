@@ -19,8 +19,6 @@ export default function CalculatorPage() {
 
   useEffect(() => {
     fetchState().catch((err) => {
-      // Error handling is now managed by the interceptor
-      // 401 errors will be handled automatically
       if (err.response?.status !== 401) {
         toast.error("Failed to load calculator data");
       }
@@ -40,7 +38,7 @@ export default function CalculatorPage() {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -48,16 +46,18 @@ export default function CalculatorPage() {
     >
       <div className="flex justify-between items-center mb-6">
         <ThemeToggle />
-        
+
         <div className="flex items-center gap-2">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.3 }}
             className="flex items-center bg-secondary/30 dark:bg-secondary/20 px-3 py-1.5 rounded-md border border-border/30"
           >
             <User className="h-3.5 w-3.5 text-secondary-foreground dark:text-secondary-foreground/90 mr-2" />
-            <span className="text-xs font-medium text-secondary-foreground dark:text-secondary-foreground/90">{username}</span>
+            <span className="text-xs font-medium text-secondary-foreground dark:text-secondary-foreground/90">
+              {username}
+            </span>
           </motion.div>
 
           <motion.div
@@ -65,10 +65,10 @@ export default function CalculatorPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.3 }}
           >
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleLogout} 
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleLogout}
               className="h-8 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-border/40"
             >
               <LogOut className="h-3.5 w-3.5 mr-1.5" />
@@ -77,11 +77,11 @@ export default function CalculatorPage() {
           </motion.div>
         </div>
       </div>
-      
+
       <div className="flex flex-col items-center justify-center flex-1">
         <Calculator />
       </div>
       <Toaster />
     </motion.div>
   );
-} 
+}
