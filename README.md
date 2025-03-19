@@ -14,8 +14,8 @@
 
 ### Мобильная версия
 <div align="center">
-  <img src="./public/mobile-calc.jpeg" alt="Калькулятор на мобильном устройстве" width="300" />
   <img src="./public/mobile-login.jpeg" alt="Страница входа на мобильном устройстве" width="300" />
+  <img src="./public/mobile-calc.jpeg" alt="Калькулятор на мобильном устройстве" width="300" />
 </div>
 
 ### API Документация
