@@ -7,7 +7,9 @@ import { CalculatorModule } from './calculator/calculator.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/calculator'),
+    MongooseModule.forRoot(
+      process.env.MONGODB_URI || 'mongodb://localhost:27017/calculator',
+    ),
     AuthModule,
     CalculatorModule,
   ],

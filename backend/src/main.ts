@@ -7,7 +7,7 @@ import { InitService } from './auth/init.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  
+
   // Configure CORS with specific options
   app.enableCors({
     origin: true, // Allow requests from any origin

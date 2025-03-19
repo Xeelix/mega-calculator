@@ -82,4 +82,4 @@ export class CalculationResultDto {
   })
   @IsNumber()
   result: number;
-} 
+}

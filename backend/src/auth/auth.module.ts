@@ -22,4 +22,4 @@ import { InitService } from './init.service';
   providers: [AuthService, LocalStrategy, JwtStrategy, InitService],
   exports: [AuthService, MongooseModule],
 })
-export class AuthModule {} 
+export class AuthModule {}

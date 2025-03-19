@@ -15,4 +15,4 @@ import { User, UserSchema } from '../auth/schemas/user.schema';
   controllers: [CalculatorController],
   providers: [CalculatorService],
 })
-export class CalculatorModule {} 
+export class CalculatorModule {}

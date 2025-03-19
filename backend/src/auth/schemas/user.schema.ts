@@ -20,11 +20,14 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ type: CalculatorState, default: () => ({ memory: 0, currentExpression: '' }) })
+  @Prop({
+    type: CalculatorState,
+    default: () => ({ memory: 0, currentExpression: '' }),
+  })
   calculatorState: CalculatorState;
 
   @Prop({ default: Date.now })
   createdAt: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User); 
+export const UserSchema = SchemaFactory.createForClass(User);

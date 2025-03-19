@@ -6,9 +6,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class InitService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async initializeTestAccounts() {
     const testAccounts = [
@@ -23,7 +21,9 @@ export class InitService {
     ];
 
     for (const account of testAccounts) {
-      const existingUser = await this.userModel.findOne({ username: account.username }).exec();
+      const existingUser = await this.userModel
+        .findOne({ username: account.username })
+        .exec();
       if (!existingUser) {
         const hashedPassword = await bcrypt.hash(account.password, 10);
         await this.userModel.create({
@@ -31,12 +31,12 @@ export class InitService {
           password: hashedPassword,
           calculatorState: {
             memory: 0,
-            currentExpression: ''
+            currentExpression: '',
           },
-          createdAt: new Date()
+          createdAt: new Date(),
         });
         console.log(`Created test account: ${account.username}`);
       }
     }
   }
-} 
+}
